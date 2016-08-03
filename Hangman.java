@@ -22,25 +22,41 @@ public class Hangman extends ConsoleProgram {
 	private int guessCounter = 8;
 	
 	
-	private void pickWord(){
+	
+	
+	
+	private String pickWord(){
 		
 		int randWord = rgen.nextInt(0,hangman.getWordCount());
 		
 		String pickWord = hangman.getWord(randWord);
-		
-		println("The Pick word is that :"+ pickWord);
+		return pickWord;
 	}
 	
+	String word = pickWord();
+	private String countNumberOfCharcterInPickWord(){
+		String charLength = "";
+		for(int count =0; count<word.length();count++)
+		{
+			charLength = charLength + "-";
+		}
+		return charLength;
+	}
 	
+	String hiddenWord = countNumberOfCharcterInPickWord();
 	
 	
 	public void run() {
 		/* You fill this in */
     	setSize(windowWidth,windowHeight);
+    	
     	println("Welcome to Hangman !");
-    	println("The word now looks like this: ");
-    	println("You have " + guessCounter + " guesses left.");
-    	pickWord();
+       	println("The word now looks like this: "+ hiddenWord);
+       	println("You have " + guessCounter + " guesses left.");
+    	
+       	pickWord();
+       	
+    	
     	
     	
     	
