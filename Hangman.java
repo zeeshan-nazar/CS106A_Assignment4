@@ -20,10 +20,7 @@ public class Hangman extends ConsoleProgram {
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	
 	private int guessCounter = 8;
-	
-	
-	
-	
+	private char character;
 	
 	private String pickWord(){
 		
@@ -44,19 +41,57 @@ public class Hangman extends ConsoleProgram {
 	}
 	
 	String hiddenWord = countNumberOfCharcterInPickWord();
-	
+	private void playGame(){
+		String letter;
+		
+		while(true){
+			if(guessCounter == 0){
+				break;
+			}
+			else{
+				letter = readLine("Your guess character:");
+				while(true){
+				if(letter.length()>1){
+					letter = readLine("You guess only one letter at a time, Please enter again only one letter :");
+				}
+				
+				if(letter.length() == 1){
+					break;
+				}
+			}
+				character = letter.charAt(0);
+				
+				if(Character.isLowerCase(character)){
+					
+					character = Character.toUpperCase(character);
+					
+				}
+				
+				for(int match = 0; match<word.length();match++)
+				{
+					if(character == word.charAt(match)){
+						
+						hiddenWord = hiddenWord + character;
+						
+						println("word is present" +hiddenWord);
+						
+					}
+					else{
+						println("letter is not in this word");
+					}
+				}
+				
+			}
+		}
+	}
 	
 	public void run() {
 		/* You fill this in */
     	setSize(windowWidth,windowHeight);
-    	
     	println("Welcome to Hangman !");
-       	println("The word now looks like this: "+ hiddenWord);
-       	println("You have " + guessCounter + " guesses left.");
-    	
-       	pickWord();
-       	
-    	
+    	println("The word now looks like this: "+ hiddenWord);
+    	println("You have " + guessCounter + " guesses left.");
+    	playGame();
     	
     	
     	
