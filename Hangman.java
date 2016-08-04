@@ -37,6 +37,7 @@ public class Hangman extends ConsoleProgram {
 		{
 			charLength = charLength + "-";
 		}
+		
 		return charLength;
 	}
 	
@@ -44,6 +45,7 @@ public class Hangman extends ConsoleProgram {
 	private void playGame(){
 		String letter;
 		
+		println("Word: " + word);		//...............
 		while(true){
 			if(guessCounter == 0){
 				break;
@@ -61,23 +63,18 @@ public class Hangman extends ConsoleProgram {
 			}
 				character = letter.charAt(0);
 				
-				if(Character.isLowerCase(character)){
-					
-					character = Character.toUpperCase(character);
-					
+				if(Character.isLowerCase(character))
+				{					
+					character = Character.toUpperCase(character);	
 				}
 				
+				
 				for(int match = 0; match<word.length();match++)
-				{
-					if(character == word.charAt(match)){
-						
-						hiddenWord = hiddenWord + character;
-						
-						println("word is present" +hiddenWord);
-						
-					}
-					else{
-						println("letter is not in this word");
+				{				
+					if(character == word.charAt(match))
+					{
+						hiddenWord= hiddenWord + character;
+						println(hiddenWord);						
 					}
 				}
 				
@@ -87,10 +84,13 @@ public class Hangman extends ConsoleProgram {
 	
 	public void run() {
 		/* You fill this in */
+		
+		
     	setSize(windowWidth,windowHeight);
     	println("Welcome to Hangman !");
     	println("The word now looks like this: "+ hiddenWord);
     	println("You have " + guessCounter + " guesses left.");
+ 
     	playGame();
     	
     	
