@@ -73,7 +73,7 @@ public class Hangman extends ConsoleProgram {
 				{				
 					if(character == word.charAt(match))
 					{
-						hiddenWord= hiddenWord + character;
+						hiddenWord= hiddenWord.substring(match) + character;
 						println(hiddenWord);						
 					}
 				}
