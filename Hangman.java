@@ -80,7 +80,7 @@ public class Hangman extends ConsoleProgram {
 				{				
 					if(character == word.charAt(match))
 					{
-						 temp = hiddenWord.substring(0,match)+ character + hiddenWord.substring(match+1);
+						 temp = hiddenWord.substring(0,match) + character + hiddenWord.substring(match + 1);
 						hiddenWord = temp;
 						
 
@@ -98,7 +98,7 @@ public class Hangman extends ConsoleProgram {
 					println("You have "+ guessCounter + " guesses left");
 				}
 				
-				else if(index != 1){
+				else if(index != -1){
 					println("That guess is correct");
 					println("The word now looks like this: "+ hiddenWord);
 					println("You have "+ guessCounter + " guesses left");
