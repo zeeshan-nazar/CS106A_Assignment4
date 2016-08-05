@@ -11,6 +11,7 @@ import acm.util.*;
 
 import java.awt.*;
 
+
 public class Hangman extends ConsoleProgram {
 
 	private int windowWidth = 400;
@@ -43,6 +44,7 @@ public class Hangman extends ConsoleProgram {
 	
 	String hiddenWord = countNumberOfCharcterInPickWord();
 	private void playGame(){
+		
 		String letter;
 		
 		println("Word: " + word);		//...............
@@ -73,11 +75,26 @@ public class Hangman extends ConsoleProgram {
 				{				
 					if(character == word.charAt(match))
 					{
-						String temp = hiddenWord.substring(0,match)+ character + hiddenWord.substring(5);
+						String temp = hiddenWord.substring(0,match)+ character + hiddenWord.substring(match+1);
 						hiddenWord = temp;
-						println(hiddenWord);						
+						println("That guess is correct");
+						println("The word now looks like this: "+ hiddenWord);
+						println("You have"+ guessCounter + "guesses left");
+
+					}
+					
+					else{
+						
+						println("There are no " + character + "in the word.");
+						guessCounter--;
+						println("The word now looks like this: "+ hiddenWord);
+						println("You have"+ guessCounter + "guesses left");
+
+						
 					}
 				}
+				
+				
 				
 			}
 		}
