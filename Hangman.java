@@ -22,6 +22,7 @@ public class Hangman extends ConsoleProgram {
 	
 	private int guessCounter = 8;
 	private char character;
+	String temp;
 	
 	private String pickWord(){
 		
@@ -50,8 +51,12 @@ public class Hangman extends ConsoleProgram {
 		println("Word: " + word);		//...............
 		while(true){
 			if(guessCounter == 0){
+				println("You are completely hung.");
+				println("The word was :"+ word);
+				println("You Lose the game.");
 				break;
 			}
+			
 			else{
 				letter = readLine("Your guess character:");
 				while(true){
@@ -75,29 +80,42 @@ public class Hangman extends ConsoleProgram {
 				{				
 					if(character == word.charAt(match))
 					{
-						String temp = hiddenWord.substring(0,match)+ character + hiddenWord.substring(match+1);
+						 temp = hiddenWord.substring(0,match)+ character + hiddenWord.substring(match+1);
 						hiddenWord = temp;
-						println("That guess is correct");
-						println("The word now looks like this: "+ hiddenWord);
-						println("You have"+ guessCounter + "guesses left");
+						
 
 					}
 					
-					else{
-						
-						println("There are no " + character + "in the word.");
-						guessCounter--;
-						println("The word now looks like this: "+ hiddenWord);
-						println("You have"+ guessCounter + "guesses left");
-
-						
-					}
+					
 				}
 				
+				 int index = word.indexOf(character);
 				
+				if(index == -1){
+					println("There are no " + character + " in the word.");
+					guessCounter--;
+					println("The word now looks like this: "+ hiddenWord);
+					println("You have "+ guessCounter + " guesses left");
+				}
+				
+				else if(index != 1){
+					println("That guess is correct");
+					println("The word now looks like this: "+ hiddenWord);
+					println("You have "+ guessCounter + " guesses left");
+				}
 				
 			}
 		}
+		
+		if(guessCounter>0){
+			if(hiddenWord.length() == word.length()){
+				println("That guess is correct.");
+				println("You guessed the word:" +word);
+				println("You win");
+				
+			}
+		} 
+		
 	}
 	
 	public void run() {
@@ -108,7 +126,6 @@ public class Hangman extends ConsoleProgram {
     	println("Welcome to Hangman !");
     	println("The word now looks like this: "+ hiddenWord);
     	println("You have " + guessCounter + " guesses left.");
- 
     	playGame();
     	
     	
