@@ -22,7 +22,8 @@ public class Hangman extends ConsoleProgram {
 	
 	private int guessCounter = 8;
 	private char character;
-	String temp;
+	
+
 	
 	private String pickWord(){
 		
@@ -48,16 +49,19 @@ public class Hangman extends ConsoleProgram {
 		
 		String letter;
 		
-		println("Word: " + word);		//...............
 		while(true){
 			if(guessCounter == 0){
-				println("You are completely hung.");
-				println("The word was :"+ word);
-				println("You Lose the game.");
+				gameOver();
 				break;
 			}
 			
 			else{
+				
+					if(hiddenWord.equals(word)){
+						wonGame();
+						break;
+					}
+					else{
 				letter = readLine("Your guess character:");
 				while(true){
 				if(letter.length()>1){
@@ -74,50 +78,55 @@ public class Hangman extends ConsoleProgram {
 				{					
 					character = Character.toUpperCase(character);	
 				}
-				
-				
-				for(int match = 0; match<word.length();match++)
-				{				
-					if(character == word.charAt(match))
-					{
-						 temp = hiddenWord.substring(0,match) + character + hiddenWord.substring(match + 1);
-						hiddenWord = temp;
-						
-
-					}
-					
-					
-				}
-				
-				 int index = word.indexOf(character);
-				
-				if(index == -1){
-					println("There are no " + character + " in the word.");
-					guessCounter--;
-					println("The word now looks like this: "+ hiddenWord);
-					println("You have "+ guessCounter + " guesses left");
-				}
-				
-				else if(index != -1){
-					println("That guess is correct");
-					println("The word now looks like this: "+ hiddenWord);
-					println("You have "+ guessCounter + " guesses left");
-				}
-				
+			
+				searchCharacter();
+				characterPresentOrNot();
 			}
 		}
-		
-		if(guessCounter>0){
-			if(hiddenWord.length() == word.length()){
-				println("That guess is correct.");
-				println("You guessed the word:" +word);
-				println("You win");
-				
-			}
-		} 
+	}
 		
 	}
 	
+	private void searchCharacter(){
+		for(int match = 0; match<word.length();match++)
+		{				
+			if(character == word.charAt(match))
+			{
+				hiddenWord = hiddenWord.substring(0,match) + character + hiddenWord.substring(match + 1);
+
+			}
+			
+		}
+	}
+	
+	private void characterPresentOrNot(){
+		 int index = word.indexOf(character);
+			
+			if(index == -1){
+				println("There are no " + character + " in the word.");
+				guessCounter--;
+				println("The word now looks like this: "+ hiddenWord);
+				println("You have "+ guessCounter + " guesses left");
+			}
+			
+			else if(index != -1){
+				
+				println("That guess is correct");
+				println("The word now looks like this: "+ hiddenWord);
+				println("You have "+ guessCounter + " guesses left");
+			}
+	}
+	
+	private void gameOver(){
+		println("You are completely hung.");
+		println("The word was :"+ word);
+		println("You Lose the game.");
+	}
+	
+	private void wonGame(){
+		println("You guessed the word:" +word);
+		println("You won the game :)");
+	}
 	public void run() {
 		/* You fill this in */
 		
@@ -127,9 +136,7 @@ public class Hangman extends ConsoleProgram {
     	println("The word now looks like this: "+ hiddenWord);
     	println("You have " + guessCounter + " guesses left.");
     	playGame();
-    	
-    	
-    	
+ 
     	
 	}
 
