@@ -14,9 +14,10 @@ import java.awt.*;
 
 public class Hangman extends ConsoleProgram {
 
-	private int windowWidth = 400;
+	private int windowWidth = 700;
 	private int windowHeight = 1000;
 	private HangmanLexicon hangman = new HangmanLexicon();
+	private HangmanCanvas canvas ;
 	
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 	
@@ -132,12 +133,19 @@ public class Hangman extends ConsoleProgram {
 		
 		
     	setSize(windowWidth,windowHeight);
+    	canvas.reset();
     	println("Welcome to Hangman !");
     	println("The word now looks like this: "+ hiddenWord);
     	println("You have " + guessCounter + " guesses left.");
     	playGame();
  
     	
+	}
+	public void init(){
+		canvas = new HangmanCanvas();
+		add(canvas);
+		
+		
 	}
 
 }
