@@ -27,13 +27,6 @@ public class HangmanCanvas extends GCanvas {
 		GLine rope = new GLine (beam_End_x_coordinate, scaffold_Start_y_coordinate , beam_End_x_coordinate, rope_End_y_coordinate);
 		add(rope);
 		
-		drawHead();
-		drawBody();
-		leftArm();
-		rightArm();
-		hip();
-		Legs();
-		leftFoot();
 	}
 	
 	private void drawHead(){
@@ -92,7 +85,7 @@ public class HangmanCanvas extends GCanvas {
 	    add(lower_right_Arm);
 	}
 	
-	private void hip(){
+	private void leftHip(){
 		double left_hip_Start_x_coordinate = getWidth()*2 + HEAD_RADIUS + ROPE_LENGTH/2 - 2;
 		double left_hip_Start_y_coordinate = getHeight()/2 + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + 2;
 		double left_hip_End_x_coordinate = left_hip_Start_x_coordinate - HIP_WIDTH;
@@ -100,7 +93,11 @@ public class HangmanCanvas extends GCanvas {
 		
 		GLine hip_Left_Side = new GLine(left_hip_Start_x_coordinate,left_hip_Start_y_coordinate,left_hip_End_x_coordinate,left_hip_End_y_coordinate);
 		add(hip_Left_Side);
+
 		
+	}
+	
+	private void rightHip(){
 		
 		double right_hip_Start_x_coordinate = getWidth()*2 + HEAD_RADIUS + ROPE_LENGTH/2 - 2;
 		double right_hip_Start_y_coordinate = getHeight()/2 + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + 2;
@@ -110,10 +107,10 @@ public class HangmanCanvas extends GCanvas {
 		GLine hip_Right_Side = new GLine(right_hip_Start_x_coordinate,right_hip_Start_y_coordinate,right_hip_End_x_coordinate,right_hip_End_y_coordinate);
 		add(hip_Right_Side);
 		
-		
 	}
 	
-	private void Legs(){
+	private void leftLeg(){
+		leftHip();
 		double leftLeg_Start_x_coordinate = getWidth()*2 + HEAD_RADIUS + ROPE_LENGTH/2 - HIP_WIDTH - 2;
 		double leftLeg_Start_y_coordinate = getHeight()/2 + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + 2;
 		double leftLeg_End_x_coordinate = leftLeg_Start_x_coordinate;
@@ -122,7 +119,11 @@ public class HangmanCanvas extends GCanvas {
 	    GLine left_Leg = new GLine(leftLeg_Start_x_coordinate,leftLeg_Start_y_coordinate, leftLeg_End_x_coordinate,leftLeg_End_y_coordinate);
 	    add(left_Leg);
 	    
-	    double rightLeg_Start_x_coordinate = getWidth()*2 + HEAD_RADIUS + ROPE_LENGTH/2 + HIP_WIDTH - 2;
+	}
+	
+	private void rightLeg(){
+		rightHip();
+		double rightLeg_Start_x_coordinate = getWidth()*2 + HEAD_RADIUS + ROPE_LENGTH/2 + HIP_WIDTH - 2;
 		double rightLeg_Start_y_coordinate = getHeight()/2 + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + 2;
 		double rightLeg_End_x_coordinate = rightLeg_Start_x_coordinate;
 	    double rightLeg_End_y_coordinate = rightLeg_Start_y_coordinate + LEG_LENGTH;
@@ -140,7 +141,10 @@ public class HangmanCanvas extends GCanvas {
 	    GLine left_Foot = new GLine(leftFoot_Start_x_coordinate,leftFoot_Start_y_coordinate,leftFoot_End_x_coordinate,leftFoot_End_y_coordinate);
 	    add(left_Foot);
 	    
-	    double rightFoot_Start_x_coordinate = getWidth()*2 + HEAD_RADIUS + ROPE_LENGTH/2 + HIP_WIDTH - 2;
+	}
+	
+	private void rightFoot(){
+		double rightFoot_Start_x_coordinate = getWidth()*2 + HEAD_RADIUS + ROPE_LENGTH/2 + HIP_WIDTH - 2;
 		double rightFoot_Start_y_coordinate = getHeight()/2 + ROPE_LENGTH + HEAD_RADIUS + BODY_LENGTH + LEG_LENGTH + 2;
 		double rightFoot_End_x_coordinate = rightFoot_Start_x_coordinate + FOOT_LENGTH;
 	    double rightFoot_End_y_coordinate = rightFoot_Start_y_coordinate;
@@ -156,6 +160,10 @@ public class HangmanCanvas extends GCanvas {
  */
 	public void displayWord(String word) {
 		/* You fill this in */
+		double x = getWidth()/4;
+		double y = getHeight() - HEAD_RADIUS*5;
+		GLabel guessedWord = new GLabel(word, x, y);
+		add(guessedWord);
 	}
 
 /**
@@ -164,8 +172,39 @@ public class HangmanCanvas extends GCanvas {
  * on the scaffold and adds the letter to the list of incorrect
  * guesses that appears at the bottom of the window.
  */
-	public void noteIncorrectGuess(char letter) {
+	public void noteIncorrectGuess(String letter) {
 		/* You fill this in */
+		double x = getWidth()/4;
+		double y = getHeight() - HEAD_RADIUS*4;
+		GLabel wrongCharacters = new GLabel(letter, x, y);
+		
+		add(wrongCharacters);
+		
+		if(letter.length() == 1){
+			drawHead();
+		}
+		else if(letter.length() == 2){
+			drawBody();
+		}
+		else if(letter.length()== 3){
+			leftArm();
+		}
+		else if(letter.length() == 4){
+			rightArm();
+		}
+		else if(letter.length() == 5){
+			leftLeg();
+		}
+		else if(letter.length() == 6){
+			rightLeg();
+		}
+		else if(letter.length() == 7){
+			leftFoot();
+		}
+		else if(letter.length() == 8){
+			rightFoot();
+		} 
+		
 	}
 
 /* Constants for the simple version of the picture (in pixels) */

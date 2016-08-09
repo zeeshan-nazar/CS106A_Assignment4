@@ -23,6 +23,7 @@ public class Hangman extends ConsoleProgram {
 	
 	private int guessCounter = 8;
 	private char character;
+	private String incorrectLetter;
 	
 
 	
@@ -48,6 +49,7 @@ public class Hangman extends ConsoleProgram {
 	String hiddenWord = countNumberOfCharcterInPickWord();
 	private void playGame(){
 		
+		println(word); ////////////.........
 		String letter;
 		
 		while(true){
@@ -97,6 +99,8 @@ public class Hangman extends ConsoleProgram {
 
 			}
 			
+			canvas.displayWord(hiddenWord);
+			
 		}
 	}
 	
@@ -106,6 +110,8 @@ public class Hangman extends ConsoleProgram {
 			if(index == -1){
 				println("There are no " + character + " in the word.");
 				guessCounter--;
+				incorrectLetter = incorrectLetter + character;
+				canvas.noteIncorrectGuess(incorrectLetter);
 				println("The word now looks like this: "+ hiddenWord);
 				println("You have "+ guessCounter + " guesses left");
 			}
