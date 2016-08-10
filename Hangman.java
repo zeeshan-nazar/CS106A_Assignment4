@@ -5,11 +5,11 @@
  * Assignment #4.
  */
 
-import acm.graphics.*;
+
 import acm.program.*;
 import acm.util.*;
 
-import java.awt.*;
+
 
 
 public class Hangman extends ConsoleProgram {
@@ -23,7 +23,7 @@ public class Hangman extends ConsoleProgram {
 	
 	private int guessCounter = 8;
 	private char character;
-	private String incorrectLetter;
+	private String incorrectLetter = "";
 	
 
 	
@@ -37,13 +37,13 @@ public class Hangman extends ConsoleProgram {
 	
 	String word = pickWord();
 	private String countNumberOfCharcterInPickWord(){
-		String charLength = "";
+		String wordLength = "";
 		for(int count =0; count<word.length();count++)
 		{
-			charLength = charLength + "-";
+			wordLength = wordLength + "-";
 		}
 		
-		return charLength;
+		return wordLength;
 	}
 	
 	String hiddenWord = countNumberOfCharcterInPickWord();
@@ -110,6 +110,7 @@ public class Hangman extends ConsoleProgram {
 			if(index == -1){
 				println("There are no " + character + " in the word.");
 				guessCounter--;
+				
 				incorrectLetter = incorrectLetter + character;
 				canvas.noteIncorrectGuess(incorrectLetter);
 				println("The word now looks like this: "+ hiddenWord);
@@ -127,31 +128,31 @@ public class Hangman extends ConsoleProgram {
 	private void gameOver(){
 		println("You are completely hung.");
 		println("The word was :"+ word);
-		println("You Lose the game.");
+		println("You Lose the game :(");
 	}
 	
 	private void wonGame(){
 		println("You guessed the word:" +word);
 		println("You won the game :)");
+		
 	}
 	public void run() {
 		/* You fill this in */
-		
-		
+				
     	setSize(windowWidth,windowHeight);
     	canvas.reset();
+    	
     	println("Welcome to Hangman !");
     	println("The word now looks like this: "+ hiddenWord);
     	println("You have " + guessCounter + " guesses left.");
+    	
     	playGame();
- 
     	
 	}
+	
 	public void init(){
 		canvas = new HangmanCanvas();
-		add(canvas);
-		
-		
+		add(canvas);		
 	}
 
 }
